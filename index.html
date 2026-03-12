@@ -75,7 +75,7 @@
 <script>
     document.getElementById('login-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        this.reset();
+        
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
 
@@ -86,6 +86,7 @@
         } else {
             document.getElementById('error-message').style.display = 'block';
         }
+        this.reset();
     });
     function about(){
         alert("We are a fintech company aimed to provide digital and financial solutions throughout the world. This company is working to bridge the gap with in crypto industry. We are working to create a system that enable users to deposit and withdraw crypto currences using local mobile payment methods like Ecocash,OneMoney and others.");
@@ -110,6 +111,7 @@
     </body>
 
 </html>
+
 
 
 
