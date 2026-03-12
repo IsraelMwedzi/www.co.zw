@@ -3,15 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width= device-width,initial-scale=1">
-        <meta name="authour" content="israel Mwedzi">
+        <meta name="author" content="israel Mwedzi">
         <meta name="keywords" content="Israel Mwedzi">
         <link rel="stylesheet" href="index.css">
-        <style src="index.js"></style>
-        <tittle></tittle>
+        <script src="index.js"></script>
+        <title>IsraelMwedzi Website</title>
     </head>
     <body>
 <div class="Welcome">
-        <h1 style="color:red;"><b><i>Do not try to log in if you are not the Owner of this System </i></i></b></b></h1>
+        <h1 style="color:red;"><b><i>Do not try to log in if you are not the Owner of this System </i></b></h1>
 </div>
     
 
@@ -74,7 +74,8 @@
 
 <script>
     document.getElementById('login-form').addEventListener('submit', function(e) {
-        e.preventDefault().reset();
+        e.preventDefault();
+        this.reset();
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
 
@@ -109,6 +110,7 @@
     </body>
 
 </html>
+
 
 
 
