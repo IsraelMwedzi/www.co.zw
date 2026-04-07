@@ -48,6 +48,37 @@
                 background-color: transparent;
                 border: 1px solid #ddd;
                 border-radius: 10px;
+                animation: glitter 5s infinite;
+
+
+@keyframes glitter {
+  0% {
+    border-color: #ff69b4;
+    box-shadow: 0 0 10px #ff69b4;
+  }
+  20% {
+    border-color: #33cc33;
+    box-shadow: 0 0 10px #33cc33;
+  }
+  40% {
+    border-color: #6666ff;
+    box-shadow: 0 0 10px #6666ff;
+  }
+  60% {
+    border-color: #ff9900;
+    box-shadow: 0 0 10px #ff9900;
+  }
+  80% {
+    border-color: #cc00cc;
+    box-shadow: 0 0 10px #cc00cc;
+  }
+  100% {
+    border-color: #ff69b4;
+    box-shadow: 0 0 10px #ff69b4;
+  }
+                }
+                
+            }
                 
                 
             
@@ -148,8 +179,8 @@
                 this.reset();
             });
             function about(){
-             // alert("Page under construction");
-                alert("We are a fintech company aimed to provide digital and financial solutions throughout the world. This company is working to bridge the gap with in crypto industry. We are working to create a system that enable users to deposit and withdraw crypto currences using local mobile payment methods like Ecocash, OneMoney and others.");
+             alert("Page under construction");
+                //alert("We are a fintech company aimed to provide digital and financial solutions throughout the world. This company is working to bridge the gap with in crypto industry. We are working to create a system that enable users to deposit and withdraw crypto currences using local mobile payment methods like Ecocash, OneMoney and others.");
             }
         </script>
     </body>
