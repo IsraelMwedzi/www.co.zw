@@ -1,4 +1,15 @@
- document.getElementById('login-form').addEventListener('submit', function(e) {
+
+//time
+{
+    const root = document.getElementById("root");
+    root.innerHTML = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+
+    setInterval(() => {
+        root.innerHTML = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+    }                   , 2000);
+}   
+
+document.getElementById('login-form').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 var username = document.getElementById('username').value;
