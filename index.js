@@ -6,7 +6,7 @@
 
     setInterval(() => {
         root.innerHTML = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
-    }                   , 2000);
+    }                   , 500);
 }   
 
 document.getElementById('login-form').addEventListener('submit', function(e) {
