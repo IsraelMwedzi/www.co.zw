@@ -138,3 +138,11 @@
                 position:center;
             }
         
+#chatBot{
+     background-color:blue;
+      color:white;
+      position:center;
+      padding:15px;
+      border-radius:10px;
+      
+}
