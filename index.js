@@ -45,4 +45,9 @@ function typeWriter() {
 }
 
 typeWriter();
+{
+    function chat(){
+        alert("The chat bot is under constructon, we will inform you when it is done");
+    }
+}
         
