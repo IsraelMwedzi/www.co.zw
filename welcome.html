@@ -1,1 +1,217 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELOXA</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#001f4d,#004aad,#007bff);
+    color:white;
+}
+
+/* Navigation */
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    background:rgba(0,0,0,.2);
+    backdrop-filter:blur(15px);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+}
+
+nav ul li{
+    margin-left:25px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+    transition:.3s;
+}
+
+nav ul li a:hover{
+    color:#8fd3ff;
+}
+
+/* Hero */
+
+.hero{
+    text-align:center;
+    padding:120px 20px;
+}
+
+.hero h1{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:22px;
+    color:#d9ecff;
+    max-width:700px;
+    margin:auto;
+}
+
+.hero button{
+    margin-top:40px;
+    padding:16px 40px;
+    border:none;
+    border-radius:40px;
+    background:white;
+    color:#0066ff;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.hero button:hover{
+    transform:translateY(-5px);
+    background:#8fd3ff;
+}
+
+/* Features */
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+    padding:80px 8%;
+}
+
+.card{
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:35px;
+    transition:.4s;
+    border:1px solid rgba(255,255,255,.15);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    background:rgba(255,255,255,.2);
+    box-shadow:0 20px 40px rgba(0,0,0,.3);
+}
+
+.card h2{
+    margin-bottom:15px;
+    color:#9dd8ff;
+}
+
+.card p{
+    line-height:1.7;
+    color:#e8f4ff;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    margin-top:50px;
+    background:rgba(0,0,0,.2);
+}
+</style>
+
+</head>
+<body>
+
+<nav>
+    <div class="logo">VELOXA</div>
+
+    <ul>
+        <li><a href="#chatbot">ChatBot</a></li>
+        <li><a href="#setget">SetGet</a></li>
+        <li><a href="#books">Books</a></li>
+        <li><a href="#ai">AI</a></li>
+        <li><a href="#pay">Pay</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <h1>Welcome to VELOXA</h1>
+    <p>
+        A next-generation digital ecosystem powered by innovation,
+        artificial intelligence, cloud technology, and secure financial solutions.
+    </p>
+
+    <button>Explore VELOXA</button>
+</section>
+
+<section class="features">
+
+<div class="card" id="chatbot">
+<h2>💬 Veloxa ChatBot</h2>
+<p>
+Experience intelligent conversations with the VELOXA ChatBot.
+Get instant answers, customer support, automation, and AI-powered assistance
+24/7.
+</p>
+</div>
+
+<div class="card" id="setget">
+<h2>⚙️ Veloxa SetGet System</h2>
+<p>
+A powerful data management platform designed for secure storage,
+fast retrieval, synchronization, and workflow automation for businesses
+and developers.
+</p>
+</div>
+
+<div class="card" id="books">
+<h2>📚 Veloxa Books</h2>
+<p>
+Access digital books, educational resources, and cloud-based reading tools.
+Designed for students, professionals, and lifelong learners.
+</p>
+</div>
+
+<div class="card" id="ai">
+<h2>🤖 Veloxa AI</h2>
+<p>
+Harness advanced Artificial Intelligence for automation,
+analytics, content generation, coding assistance, and intelligent decision-making.
+</p>
+</div>
+
+<div class="card" id="pay">
+<h2>💳 VELOXA Pay</h2>
+<p>
+A modern payment platform offering secure transactions,
+digital wallets, online payments, merchant services, and financial management.
+</p>
+</div>
+
+</section>
+
+<footer>
+    © 2026 VELOXA • Innovating the Future with AI & Technology
+</footer>
+
+</body>
+</html>
