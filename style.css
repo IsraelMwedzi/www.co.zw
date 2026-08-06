@@ -1,0 +1,432 @@
+/* =====================================================
+   VELOXA STYLE.CSS
+   PART 2
+=====================================================*/
+
+/* =========================
+   PRICING
+========================= */
+
+.pricing{
+    padding:80px 8%;
+}
+
+.pricing-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:35px;
+}
+
+.price-card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(20px);
+    border-radius:25px;
+    padding:45px;
+    text-align:center;
+    transition:.4s;
+}
+
+.price-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 25px 50px rgba(0,0,0,.3);
+}
+
+.featured{
+    transform:scale(1.05);
+    border:2px solid #55c9ff;
+    box-shadow:0 0 40px rgba(0,153,255,.4);
+}
+
+.featured:hover{
+    transform:scale(1.08);
+}
+
+.price-card h3{
+    font-size:28px;
+}
+
+.price-card h1{
+    font-size:60px;
+    margin:25px 0;
+    color:#66d9ff;
+}
+
+.price-card ul{
+    list-style:none;
+    margin:30px 0;
+}
+
+.price-card ul li{
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.price-card button{
+    margin-top:20px;
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    background:linear-gradient(45deg,#0099ff,#0055ff);
+    color:white;
+    font-size:17px;
+    transition:.35s;
+}
+
+.price-card button:hover{
+    transform:translateY(-3px);
+}
+
+/* =========================
+   TESTIMONIAL
+========================= */
+
+.testimonials{
+    padding:90px 8%;
+}
+
+.testimonial{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+    background:rgba(255,255,255,.08);
+    border-radius:25px;
+    padding:60px;
+    backdrop-filter:blur(20px);
+}
+
+.testimonial p{
+    font-size:22px;
+    line-height:1.8;
+    margin-bottom:20px;
+}
+
+.testimonial h4{
+    color:#66d9ff;
+}
+
+/* =========================
+   NEWSLETTER
+========================= */
+
+.newsletter{
+    text-align:center;
+    padding:90px 8%;
+}
+
+.newsletter h2{
+    font-size:45px;
+    margin-bottom:20px;
+}
+
+.newsletter p{
+    color:#dce7f8;
+    margin-bottom:30px;
+}
+
+.newsletter form{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.newsletter input{
+    width:380px;
+    max-width:100%;
+    padding:18px;
+    border:none;
+    border-radius:50px;
+    outline:none;
+    font-size:16px;
+}
+
+.newsletter button{
+    padding:18px 35px;
+    border:none;
+    border-radius:50px;
+    background:#008cff;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.newsletter button:hover{
+    background:#00aaff;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+    padding:90px 8%;
+}
+
+.contact form{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.contact input,
+.contact textarea{
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.12);
+
+    color:white;
+
+    backdrop-filter:blur(20px);
+
+    outline:none;
+
+    font-size:16px;
+
+}
+
+.contact textarea{
+    height:180px;
+    resize:none;
+}
+
+.contact button{
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:linear-gradient(45deg,#0099ff,#0055ff);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+}
+
+.contact button:hover{
+    opacity:.9;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    padding:70px 8% 30px;
+
+    background:#041328;
+
+    margin-top:80px;
+
+}
+
+.footer-content{
+
+    text-align:center;
+
+}
+
+.footer-content h2{
+
+    font-size:40px;
+
+    margin-bottom:15px;
+
+}
+
+.footer-content p{
+
+    color:#cfdff5;
+
+}
+
+.socials{
+
+    margin-top:25px;
+
+}
+
+.socials a{
+
+    display:inline-flex;
+
+    width:50px;
+
+    height:50px;
+
+    margin:0 10px;
+
+    border-radius:50%;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    background:#006eff;
+
+    transition:.3s;
+
+    text-decoration:none;
+
+}
+
+.socials a:hover{
+
+    transform:translateY(-5px);
+
+    background:#00aaff;
+
+}
+
+.copyright{
+
+    text-align:center;
+
+    margin-top:35px;
+
+    color:#9cb4d6;
+
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:992px){
+
+.hero{
+    grid-template-columns:1fr;
+    text-align:center;
+}
+
+.hero-buttons{
+    justify-content:center;
+}
+
+.stats{
+    grid-template-columns:repeat(2,1fr);
+}
+
+nav ul{
+    gap:18px;
+}
+
+}
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:48px;
+}
+
+.section-title{
+    font-size:34px;
+}
+
+.stats{
+    grid-template-columns:1fr;
+}
+
+nav{
+    flex-direction:column;
+    gap:20px;
+}
+
+nav ul{
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.logo h2{
+    font-size:24px;
+}
+
+.hero-icon{
+    font-size:120px;
+}
+
+.glow-circle{
+    width:230px;
+    height:230px;
+}
+
+}
+
+@media(max-width:500px){
+
+.hero{
+    padding:120px 25px;
+}
+
+.services,
+.pricing,
+.newsletter,
+.contact{
+    padding:70px 25px;
+}
+
+.card,
+.price-card,
+.testimonial{
+    padding:30px;
+}
+
+.hero-buttons{
+    flex-direction:column;
+}
+
+.btn-primary,
+.btn-secondary{
+    width:100%;
+    text-align:center;
+}
+
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark{
+
+background:#020b18;
+
+}
+
+body.dark nav{
+
+background:rgba(0,0,0,.4);
+
+}
+
+body.dark .card,
+body.dark .price-card,
+body.dark .stat,
+body.dark .testimonial{
+
+background:rgba(255,255,255,.05);
+
+}
+
+body.dark footer{
+
+background:#000814;
+
+}
