@@ -1,0 +1,445 @@
+/* ==========================================
+   VELOXA Animations
+========================================== */
+
+/* Floating Hero Icon */
+@keyframes float {
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-20px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+.hero-icon{
+
+    animation:float 4s ease-in-out infinite;
+
+}
+
+
+/* Glowing Circle */
+
+@keyframes pulse{
+
+    0%{
+
+        transform:scale(1);
+        opacity:.8;
+
+    }
+
+    50%{
+
+        transform:scale(1.15);
+        opacity:.4;
+
+    }
+
+    100%{
+
+        transform:scale(1);
+        opacity:.8;
+
+    }
+
+}
+
+
+/* Fade Up */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(50px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.fade-up{
+
+    animation:fadeUp 1s ease forwards;
+
+}
+
+
+/* Fade Left */
+
+@keyframes fadeLeft{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(-60px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+.fade-left{
+
+    animation:fadeLeft 1s ease forwards;
+
+}
+
+
+/* Fade Right */
+
+@keyframes fadeRight{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(60px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+.fade-right{
+
+    animation:fadeRight 1s ease forwards;
+
+}
+
+
+/* Zoom In */
+
+@keyframes zoomIn{
+
+    from{
+
+        transform:scale(.8);
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+        opacity:1;
+
+    }
+
+}
+
+.zoom{
+
+    animation:zoomIn .8s ease;
+
+}
+
+
+/* Card Glow */
+
+.card:hover{
+
+    animation:glow .5s ease forwards;
+
+}
+
+@keyframes glow{
+
+    from{
+
+        box-shadow:0 0 0 rgba(0,153,255,0);
+
+    }
+
+    to{
+
+        box-shadow:
+        0 0 25px rgba(0,153,255,.4),
+        0 0 50px rgba(0,153,255,.3);
+
+    }
+
+}
+
+
+/* Button Pulse */
+
+.btn-primary:hover{
+
+    animation:buttonPulse .8s infinite alternate;
+
+}
+
+@keyframes buttonPulse{
+
+    from{
+
+        transform:scale(1);
+
+    }
+
+    to{
+
+        transform:scale(1.05);
+
+    }
+
+}
+
+
+/* Rotate Icons */
+
+.card i{
+
+    transition:.5s;
+
+}
+
+.card:hover i{
+
+    transform:rotate(360deg) scale(1.2);
+
+}
+
+
+/* Navigation Slide */
+
+@keyframes slideDown{
+
+    from{
+
+        transform:translateY(-100px);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:translateY(0);
+
+        opacity:1;
+
+    }
+
+}
+
+nav{
+
+    animation:slideDown .8s;
+
+}
+
+
+/* Hero Text */
+
+.hero-text{
+
+    animation:fadeLeft 1.2s;
+
+}
+
+
+/* Hero Image */
+
+.hero-image{
+
+    animation:fadeRight 1.2s;
+
+}
+
+
+/* Pricing Cards */
+
+.price-card{
+
+    transition:.4s;
+
+}
+
+.price-card:hover{
+
+    transform:translateY(-12px) scale(1.02);
+
+}
+
+
+/* Newsletter Button */
+
+.newsletter button:hover{
+
+    animation:buttonPulse .6s infinite alternate;
+
+}
+
+
+/* Social Icons */
+
+.socials a:hover{
+
+    animation:bounce .6s;
+
+}
+
+@keyframes bounce{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-12px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* Loading Spinner */
+
+.loader{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    border:6px solid rgba(255,255,255,.2);
+
+    border-top:6px solid white;
+
+    animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+    from{
+
+        transform:rotate(0);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+
+/* Floating Cards */
+
+@keyframes floatCard{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.card:nth-child(odd){
+
+    animation:floatCard 6s infinite ease-in-out;
+
+}
+
+.card:nth-child(even){
+
+    animation:floatCard 7s infinite ease-in-out;
+
+}
+
+
+/* Smooth Image Animation */
+
+img{
+
+    transition:.5s;
+
+}
+
+img:hover{
+
+    transform:scale(1.05);
+
+}
+
+
+/* Scroll Reveal */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(80px);
+
+    transition:1s;
+
+}
+
+.reveal.active{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
