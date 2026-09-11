@@ -1,0 +1,1032 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veloxa Technologies | VT Assistant</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6c4df6;
+      --primary-dark: #4b2fd3;
+      --accent: #00d4ff;
+      --background: #070a16;
+      --sidebar: #0d1224;
+      --chat: #10162b;
+      --message: #1a2140;
+      --text: #ffffff;
+      --muted: #9ca7c7;
+      --border: rgba(255,255,255,0.1);
+      --success: #27d980;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top right, #242052, transparent 40%),
+        var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .app {
+      width: 1100px;
+      max-width: 100%;
+      height: 750px;
+      max-height: 95vh;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      background: var(--chat);
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+      background: linear-gradient(
+        180deg,
+        rgba(108,77,246,0.15),
+        rgba(13,18,36,0.95)
+      );
+      border-right: 1px solid var(--border);
+      padding: 25px 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: bold;
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+      );
+      box-shadow: 0 10px 30px rgba(108,77,246,0.4);
+    }
+
+    .brand h2 {
+      font-size: 17px;
+    }
+
+    .brand p {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .menu-title {
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin: 20px 10px 10px;
+    }
+
+    .service-btn {
+      width: 100%;
+      border: 1px solid transparent;
+      background: transparent;
+      color: white;
+      text-align: left;
+      padding: 13px;
+      margin-bottom: 6px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .service-btn:hover,
+    .service-btn.active {
+      background: var(--message);
+      border-color: var(--border);
+      transform: translateX(3px);
+    }
+
+    .service-btn span {
+      margin-right: 10px;
+    }
+
+    .online-box {
+      margin-top: 30px;
+      padding: 14px;
+      background: rgba(39,217,128,0.08);
+      border: 1px solid rgba(39,217,128,0.15);
+      border-radius: 14px;
+      color: #bff5d7;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* CHAT AREA */
+
+    .chat {
+      display: grid;
+      grid-template-rows: 75px 1fr auto auto;
+      min-width: 0;
+    }
+
+    .chat-header {
+      border-bottom: 1px solid var(--border);
+      padding: 15px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .assistant {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .assistant-avatar {
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+      );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .assistant-name {
+      font-weight: bold;
+    }
+
+    .status {
+      color: var(--success);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 12px;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+
+    .clear-btn:hover {
+      color: white;
+      background: var(--message);
+    }
+
+    /* MESSAGES */
+
+    .messages {
+      padding: 25px;
+      overflow-y: auto;
+    }
+
+    .message {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      max-width: 82%;
+      animation: messageIn 0.25s ease;
+    }
+
+    .message.user {
+      margin-left: auto;
+      flex-direction: row-reverse;
+    }
+
+    .small-avatar {
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
+      border-radius: 50%;
+      background: #272f52;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 9px;
+      font-weight: bold;
+    }
+
+    .bubble {
+      padding: 13px 16px;
+      border-radius: 17px;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    .bot .bubble {
+      background: var(--message);
+      border: 1px solid var(--border);
+      border-top-left-radius: 5px;
+    }
+
+    .user .bubble {
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+      );
+      border-top-right-radius: 5px;
+    }
+
+    @keyframes messageIn {
+      from {
+        opacity: 0;
+        transform: translateY(7px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* TYPING */
+
+    .typing {
+      display: none;
+      padding: 0 25px 10px 65px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .typing.show {
+      display: block;
+    }
+
+    /* QUICK BUTTONS */
+
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 0 20px 12px;
+    }
+
+    .quick {
+      background: rgba(255,255,255,0.04);
+      color: #dce2ff;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .quick:hover {
+      background: rgba(108,77,246,0.2);
+      border-color: var(--primary);
+    }
+
+    /* INPUT */
+
+    .composer {
+      border-top: 1px solid var(--border);
+      padding: 14px 18px 18px;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+    }
+
+    #userInput {
+      flex: 1;
+      background: #090e20;
+      color: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    #userInput:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108,77,246,0.15);
+    }
+
+    .send-btn {
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+      );
+      color: white;
+      border: none;
+      border-radius: 14px;
+      padding: 0 22px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .send-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 750px) {
+
+      body {
+        padding: 0;
+      }
+
+      .app {
+        height: 100vh;
+        max-height: none;
+        border-radius: 0;
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .message {
+        max-width: 92%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="brand">
+        <div class="logo">VT</div>
+
+        <div>
+          <h2>Veloxa Technologies</h2>
+          <p>VT Digital Assistant</p>
+        </div>
+      </div>
+
+      <div class="menu-title">
+        Explore VT
+      </div>
+
+      <button class="service-btn active" data-topic="company">
+        <span>🏢</span> About Veloxa
+      </button>
+
+      <button class="service-btn" data-topic="ai">
+        <span>🤖</span> Artificial Intelligence
+      </button>
+
+      <button class="service-btn" data-topic="books">
+        <span>📚</span> Veloxa Books
+      </button>
+
+      <button class="service-btn" data-topic="forex">
+        <span>📈</span> Forex Trading
+      </button>
+
+      <button class="service-btn" data-topic="tech">
+        <span>💻</span> Technology Services
+      </button>
+
+      <button class="service-btn" data-topic="contact">
+        <span>📞</span> Contact & Support
+      </button>
+
+      <div class="online-box">
+        🟢 <strong>VT Assistant Online</strong>
+        <br><br>
+        Ask me about Veloxa Technologies,
+        AI, Veloxa Books, Forex trading,
+        software development and other
+        technology services.
+      </div>
+
+    </aside>
+
+    <!-- CHAT -->
+    <section class="chat">
+
+      <!-- HEADER -->
+      <header class="chat-header">
+
+        <div class="assistant">
+
+          <div class="assistant-avatar">
+            🤖
+          </div>
+
+          <div>
+            <div class="assistant-name">
+              VT Assistant
+            </div>
+
+            <div class="status">
+              ● Online
+            </div>
+          </div>
+
+        </div>
+
+        <button class="clear-btn" id="clearBtn">
+          Clear Chat
+        </button>
+
+      </header>
+
+      <!-- MESSAGES -->
+      <div class="messages" id="messages"></div>
+
+      <!-- TYPING -->
+      <div class="typing" id="typing">
+        VT Assistant is typing...
+      </div>
+
+      <!-- QUICK QUESTIONS -->
+      <div class="quick-actions">
+
+        <button class="quick"
+          data-question="What services does Veloxa Technologies offer?">
+          Our Services
+        </button>
+
+        <button class="quick"
+          data-question="Tell me about Veloxa Books">
+          📚 Veloxa Books
+        </button>
+
+        <button class="quick"
+          data-question="Tell me about your AI services">
+          🤖 AI Solutions
+        </button>
+
+        <button class="quick"
+          data-question="Tell me about Forex trading">
+          📈 Forex
+        </button>
+
+      </div>
+
+      <!-- COMPOSER -->
+      <div class="composer">
+
+        <form id="chatForm">
+
+          <input
+            type="text"
+            id="userInput"
+            placeholder="Ask VT Assistant anything..."
+            autocomplete="off"
+          >
+
+          <button
+            type="submit"
+            class="send-btn">
+            Send
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <script>
+
+    const messages = document.getElementById("messages");
+    const input = document.getElementById("userInput");
+    const form = document.getElementById("chatForm");
+    const typing = document.getElementById("typing");
+    const clearBtn = document.getElementById("clearBtn");
+
+    /*
+      ============================
+      VELOXA KNOWLEDGE BASE
+      ============================
+    */
+
+    const knowledge = {
+
+      company: `
+Veloxa Technologies (VT) is a technology-focused company providing innovative digital and technology solutions.
+
+Our main areas include:
+
+🤖 Artificial Intelligence
+📚 Veloxa Books
+📈 Forex Trading
+💻 Software & Technology Services
+
+VT focuses on helping individuals and businesses use modern technology to solve problems, improve productivity and create digital opportunities.
+`,
+
+      ai: `
+Veloxa Technologies provides Artificial Intelligence solutions designed to help businesses and individuals use AI effectively.
+
+Our AI services can include:
+
+• AI chatbots
+• Business automation
+• AI-powered applications
+• Intelligent data processing
+• Machine learning solutions
+• AI assistants
+• Custom AI software
+
+Tell me what you want to build and I can help you define an AI solution for it.
+`,
+
+      books: `
+Veloxa Books is the digital publishing and educational side of Veloxa Technologies.
+
+Veloxa Books can provide:
+
+📚 Digital books
+📖 Educational materials
+💻 Technology guides
+🧠 Learning resources
+📘 Business and development content
+
+The platform can be expanded with an online bookstore, digital downloads, authors, categories and payment integration.
+`,
+
+      forex: `
+Veloxa Technologies can provide Forex-related education, information and trading resources.
+
+Topics may include:
+
+📈 Forex fundamentals
+💱 Currency pairs
+📊 Technical analysis
+🧠 Trading psychology
+💰 Risk management
+📉 Market analysis
+
+IMPORTANT:
+Forex trading carries significant financial risk. Information provided by this chatbot is educational and should not be considered a guarantee of profit or personalized financial advice.
+`,
+
+      tech: `
+Veloxa Technologies can provide a range of technology services, including:
+
+💻 Web development
+📱 Mobile application development
+🖥️ Software development
+🎨 UI/UX design
+☁️ Cloud solutions
+⚙️ Business automation
+🔐 Technology consulting
+🗄️ Database solutions
+🌐 Digital platforms
+
+Tell me what you want to build and VT Assistant can help you plan the project.
+`,
+
+      contact: `
+For the live Veloxa Technologies website, you can customize this section with your official contact information.
+
+For example:
+
+📧 Email: info@yourdomain.com
+🌐 Website: www.yourdomain.com
+📱 WhatsApp: +000 000 000 000
+📍 Location: Your business location
+
+Replace these demo details with Veloxa Technologies' real contact information.
+`
+
+    };
+
+    /*
+      ============================
+      QUESTION MATCHING
+      ============================
+    */
+
+    const answers = [
+
+      {
+        keywords: [
+          "service",
+          "services",
+          "offer",
+          "company",
+          "veloxa",
+          "what do you do"
+        ],
+        topic: "company"
+      },
+
+      {
+        keywords: [
+          "ai",
+          "artificial intelligence",
+          "machine learning",
+          "chatbot",
+          "automation"
+        ],
+        topic: "ai"
+      },
+
+      {
+        keywords: [
+          "book",
+          "books",
+          "veloxa books",
+          "publishing",
+          "ebook"
+        ],
+        topic: "books"
+      },
+
+      {
+        keywords: [
+          "forex",
+          "trading",
+          "currency",
+          "currency pair",
+          "forex trading"
+        ],
+        topic: "forex"
+      },
+
+      {
+        keywords: [
+          "technology",
+          "tech",
+          "software",
+          "website",
+          "web development",
+          "mobile",
+          "application",
+          "app",
+          "cloud",
+          "database"
+        ],
+        topic: "tech"
+      },
+
+      {
+        keywords: [
+          "contact",
+          "support",
+          "email",
+          "phone",
+          "whatsapp",
+          "location"
+        ],
+        topic: "contact"
+      }
+
+    ];
+
+    /*
+      ============================
+      ADD MESSAGE
+      ============================
+    */
+
+    function addMessage(text, sender = "bot") {
+
+      const message = document.createElement("div");
+
+      message.className = `message ${sender}`;
+
+      const avatar = document.createElement("div");
+
+      avatar.className = "small-avatar";
+
+      avatar.textContent =
+        sender === "bot"
+          ? "VT"
+          : "YOU";
+
+      const bubble = document.createElement("div");
+
+      bubble.className = "bubble";
+
+      bubble.textContent = text;
+
+      message.appendChild(avatar);
+      message.appendChild(bubble);
+
+      messages.appendChild(message);
+
+      messages.scrollTop =
+        messages.scrollHeight;
+    }
+
+    /*
+      ============================
+      GET BOT ANSWER
+      ============================
+    */
+
+    function getAnswer(question) {
+
+      const text =
+        question.toLowerCase().trim();
+
+      // Greetings
+
+      if (
+        text === "hi" ||
+        text === "hello" ||
+        text === "hey" ||
+        text.startsWith("hi ") ||
+        text.startsWith("hello ")
+      ) {
+
+        return `
+Hello! 👋
+
+Welcome to Veloxa Technologies.
+
+I'm the VT Assistant and I can help you learn about:
+
+🤖 AI
+📚 Veloxa Books
+📈 Forex Trading
+💻 Technology Services
+
+What would you like to know?
+`;
+
+      }
+
+      // Thanks
+
+      if (
+        text.includes("thank you") ||
+        text.includes("thanks")
+      ) {
+
+        return `
+You're welcome! 😊
+
+I'm always here to help you learn more about Veloxa Technologies.
+`;
+
+      }
+
+      // Who are you?
+
+      if (
+        text.includes("who are you") ||
+        text.includes("what are you")
+      ) {
+
+        return `
+I'm VT Assistant, the virtual assistant for Veloxa Technologies.
+
+I provide information about VT's services including AI, Veloxa Books, Forex trading and technology solutions.
+`;
+
+      }
+
+      // Search knowledge base
+
+      for (const answer of answers) {
+
+        for (const keyword of answer.keywords) {
+
+          if (text.includes(keyword)) {
+
+            return knowledge[answer.topic];
+
+          }
+
+        }
+
+      }
+
+      // Default answer
+
+      return `
+I'm not completely sure what you mean.
+
+I can help you with:
+
+🤖 Artificial Intelligence
+📚 Veloxa Books
+📈 Forex Trading
+💻 Technology Services
+🏢 Veloxa Technologies
+📞 Contact & Support
+
+Try asking:
+
+"What AI services do you offer?"
+
+or
+
+"Tell me about Veloxa Books."
+`;
+
+    }
+
+    /*
+      ============================
+      CHAT RESPONSE
+      ============================
+    */
+
+    function respond(question) {
+
+      if (!question.trim()) {
+        return;
+      }
+
+      addMessage(question, "user");
+
+      typing.classList.add("show");
+
+      setTimeout(() => {
+
+        typing.classList.remove("show");
+
+        const answer =
+          getAnswer(question);
+
+        addMessage(answer, "bot");
+
+      }, 600);
+
+    }
+
+    /*
+      ============================
+      FORM SUBMIT
+      ============================
+    */
+
+    form.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const question =
+        input.value.trim();
+
+      if (!question) {
+        return;
+      }
+
+      input.value = "";
+
+      respond(question);
+
+    });
+
+    /*
+      ============================
+      QUICK QUESTIONS
+      ============================
+    */
+
+    document
+      .querySelectorAll(".quick")
+      .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+          const question =
+            button.dataset.question;
+
+          respond(question);
+
+        });
+
+      });
+
+    /*
+      ============================
+      SIDEBAR SERVICES
+      ============================
+    */
+
+    document
+      .querySelectorAll(".service-btn")
+      .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+          document
+            .querySelectorAll(".service-btn")
+            .forEach(btn =>
+              btn.classList.remove("active")
+            );
+
+          button.classList.add("active");
+
+          const topic =
+            button.dataset.topic;
+
+          addMessage(
+            `Tell me about ${button.innerText.trim()}`,
+            "user"
+          );
+
+          typing.classList.add("show");
+
+          setTimeout(() => {
+
+            typing.classList.remove("show");
+
+            addMessage(
+              knowledge[topic],
+              "bot"
+            );
+
+          }, 500);
+
+        });
+
+      });
+
+    /*
+      ============================
+      CLEAR CHAT
+      ============================
+    */
+
+    clearBtn.addEventListener("click", () => {
+
+      messages.innerHTML = "";
+
+      addMessage(`
+Welcome to Veloxa Technologies! 👋
+
+I'm the VT Assistant.
+
+I can help you learn about:
+
+🤖 Artificial Intelligence
+📚 Veloxa Books
+📈 Forex Trading
+💻 Technology Services
+
+How can I help you today?
+`);
+
+    });
+
+    /*
+      ============================
+      INITIAL MESSAGE
+      ============================
+    */
+
+    addMessage(`
+Welcome to Veloxa Technologies! 👋
+
+I'm the VT Assistant.
+
+I can help you learn about:
+
+🤖 Artificial Intelligence
+📚 Veloxa Books
+📈 Forex Trading
+💻 Technology Services
+
+How can I help you today?
+`);
+
+  </script>
+
+</body>
+</html>
