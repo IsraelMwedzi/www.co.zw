@@ -1,0 +1,1501 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Veloxa AI</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #7057ff;
+      --primary-dark: #5038d9;
+      --secondary: #00d9ff;
+      --bg: #070914;
+      --panel: #0e1222;
+      --panel2: #171c31;
+      --text: #ffffff;
+      --muted: #9ba4c2;
+      --border: rgba(255,255,255,0.09);
+      --green: #2ee68a;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(112,87,255,0.20),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 90% 90%,
+          rgba(0,217,255,0.10),
+          transparent 30%
+        ),
+        var(--bg);
+
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* =========================
+       APP
+    ========================= */
+
+    .app {
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 270px 1fr;
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .sidebar {
+      background: rgba(10,14,29,0.95);
+      border-right: 1px solid var(--border);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 19px;
+      font-weight: bold;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--primary),
+          var(--secondary)
+        );
+
+      box-shadow:
+        0 10px 30px rgba(112,87,255,0.35);
+    }
+
+    .logo-text h1 {
+      font-size: 18px;
+    }
+
+    .logo-text p {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .new-chat {
+      width: 100%;
+      padding: 13px;
+      border-radius: 12px;
+
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+      );
+
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+
+      margin-bottom: 25px;
+    }
+
+    .new-chat:hover {
+      filter: brightness(1.12);
+    }
+
+    .menu-title {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin: 0 8px 10px;
+    }
+
+    .topic-btn {
+      width: 100%;
+      background: transparent;
+      color: #dfe4ff;
+      border: 1px solid transparent;
+
+      text-align: left;
+      padding: 12px;
+
+      border-radius: 11px;
+      margin-bottom: 5px;
+
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .topic-btn:hover {
+      background: var(--panel2);
+      border-color: var(--border);
+    }
+
+    .topic-btn span {
+      margin-right: 9px;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+    }
+
+    .status-box {
+      background: rgba(46,230,138,0.07);
+      border: 1px solid rgba(46,230,138,0.12);
+      padding: 13px;
+      border-radius: 12px;
+
+      color: #bdf5d7;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       MAIN CHAT
+    ========================= */
+
+    .main {
+      display: grid;
+      grid-template-rows: 70px 1fr auto auto;
+      min-width: 0;
+    }
+
+    /* HEADER */
+
+    .header {
+      border-bottom: 1px solid var(--border);
+
+      padding: 14px 25px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ai-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ai-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+      );
+    }
+
+    .ai-title h2 {
+      font-size: 16px;
+    }
+
+    .online {
+      color: var(--green);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .header-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+
+      padding: 8px 12px;
+      border-radius: 9px;
+
+      cursor: pointer;
+    }
+
+    .header-btn:hover {
+      background: var(--panel2);
+      color: white;
+    }
+
+    /* =========================
+       CHAT
+    ========================= */
+
+    .messages {
+      overflow-y: auto;
+      padding: 30px;
+      scroll-behavior: smooth;
+    }
+
+    .welcome {
+      max-width: 700px;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    .welcome-logo {
+      width: 70px;
+      height: 70px;
+
+      margin: auto;
+      margin-bottom: 20px;
+
+      border-radius: 22px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 25px;
+      font-weight: bold;
+
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+      );
+
+      box-shadow:
+        0 20px 50px rgba(112,87,255,0.35);
+    }
+
+    .welcome h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .welcome p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .message {
+      display: flex;
+      gap: 11px;
+
+      max-width: 850px;
+      margin: 0 auto 22px;
+
+      animation: messageIn .25s ease;
+    }
+
+    .message.user {
+      flex-direction: row-reverse;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+
+      min-width: 34px;
+
+      border-radius: 50%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: var(--panel2);
+
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    .message.user .avatar {
+      background: var(--primary);
+    }
+
+    .bubble {
+      max-width: 80%;
+
+      padding: 14px 17px;
+
+      border-radius: 16px;
+
+      line-height: 1.65;
+      font-size: 14px;
+
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .message.bot .bubble {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+
+      border-top-left-radius: 5px;
+    }
+
+    .message.user .bubble {
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+      );
+
+      border-top-right-radius: 5px;
+    }
+
+    @keyframes messageIn {
+
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+    /* =========================
+       TYPING
+    ========================= */
+
+    .typing {
+      display: none;
+
+      max-width: 850px;
+      margin: auto;
+
+      width: 100%;
+
+      padding: 0 65px 10px;
+
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .typing.show {
+      display: block;
+    }
+
+    /* =========================
+       SUGGESTIONS
+    ========================= */
+
+    .suggestions {
+      display: flex;
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      padding: 0 20px 13px;
+    }
+
+    .suggestion {
+      background: rgba(255,255,255,0.035);
+
+      border: 1px solid var(--border);
+
+      color: #dce2ff;
+
+      padding: 9px 13px;
+
+      border-radius: 20px;
+
+      cursor: pointer;
+
+      font-size: 12px;
+    }
+
+    .suggestion:hover {
+      border-color: var(--primary);
+      background: rgba(112,87,255,0.12);
+    }
+
+    /* =========================
+       INPUT
+    ========================= */
+
+    .composer {
+      border-top: 1px solid var(--border);
+      padding: 15px 20px 20px;
+    }
+
+    .input-area {
+      max-width: 850px;
+      margin: auto;
+
+      display: flex;
+      gap: 10px;
+
+      background: #090d1c;
+
+      border: 1px solid var(--border);
+
+      padding: 7px;
+
+      border-radius: 16px;
+    }
+
+    #input {
+      flex: 1;
+
+      background: transparent;
+      border: none;
+      outline: none;
+
+      color: white;
+
+      padding: 12px;
+
+      font-size: 14px;
+    }
+
+    #input::placeholder {
+      color: #707995;
+    }
+
+    .send {
+      width: 46px;
+      height: 46px;
+
+      border: none;
+      border-radius: 12px;
+
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+      );
+
+      color: white;
+
+      cursor: pointer;
+
+      font-size: 18px;
+    }
+
+    .send:hover {
+      filter: brightness(1.15);
+    }
+
+    .disclaimer {
+      text-align: center;
+
+      color: #69728f;
+
+      font-size: 10px;
+
+      margin-top: 8px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width: 750px) {
+
+      body {
+        overflow: hidden;
+      }
+
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .header {
+        padding: 12px 15px;
+      }
+
+      .messages {
+        padding: 20px 15px;
+      }
+
+      .bubble {
+        max-width: 90%;
+      }
+
+      .welcome {
+        margin: 60px 10px;
+      }
+
+      .welcome h1 {
+        font-size: 27px;
+      }
+
+      .header-btn {
+        padding: 7px 9px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- =========================
+       SIDEBAR
+  ========================== -->
+
+  <aside class="sidebar">
+
+    <div class="logo-area">
+
+      <div class="logo">
+        VX
+      </div>
+
+      <div class="logo-text">
+        <h1>Veloxa AI</h1>
+        <p>Intelligent Assistant</p>
+      </div>
+
+    </div>
+
+    <button
+      class="new-chat"
+      id="newChat">
+
+      + New Chat
+
+    </button>
+
+    <div class="menu-title">
+      Explore
+    </div>
+
+    <button
+      class="topic-btn"
+      data-question="Explain artificial intelligence in simple terms">
+
+      <span>🤖</span>
+      Artificial Intelligence
+
+    </button>
+
+    <button
+      class="topic-btn"
+      data-question="Explain science and technology">
+
+      <span>🔬</span>
+      Science & Technology
+
+    </button>
+
+    <button
+      class="topic-btn"
+      data-question="Help me learn business and entrepreneurship">
+
+      <span>💼</span>
+      Business
+
+    </button>
+
+    <button
+      class="topic-btn"
+      data-question="Teach me about programming">
+
+      <span>💻</span>
+      Programming
+
+    </button>
+
+    <button
+      class="topic-btn"
+      data-question="Explain history">
+
+      <span>📚</span>
+      History
+
+    </button>
+
+    <button
+      class="topic-btn"
+      data-question="Help me learn mathematics">
+
+      <span>🧮</span>
+      Mathematics
+
+    </button>
+
+    <button
+      class="topic-btn"
+      data-question="Give me general educational information">
+
+      <span>🎓</span>
+      Education
+
+    </button>
+
+    <div class="sidebar-bottom">
+
+      <div class="status-box">
+
+        🟢 <strong>Veloxa AI Online</strong>
+
+        <br>
+
+        Ask questions about almost
+        any topic and explore ideas,
+        explanations and solutions.
+
+      </div>
+
+    </div>
+
+  </aside>
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
+  <main class="main">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+      <div class="ai-title">
+
+        <div class="ai-icon">
+          ✨
+        </div>
+
+        <div>
+
+          <h2>
+            Veloxa AI
+          </h2>
+
+          <div class="online">
+            ● Online
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="header-buttons">
+
+        <button
+          class="header-btn"
+          id="clearBtn">
+
+          Clear
+
+        </button>
+
+      </div>
+
+    </header>
+
+    <!-- MESSAGES -->
+
+    <section
+      class="messages"
+      id="messages">
+
+      <div
+        class="welcome"
+        id="welcome">
+
+        <div class="welcome-logo">
+          VX
+        </div>
+
+        <h1>
+          Welcome to Veloxa AI
+        </h1>
+
+        <p>
+          Your intelligent digital assistant.
+          Ask questions, learn new subjects,
+          solve problems, generate ideas,
+          write content, explain concepts,
+          and explore different fields.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- TYPING -->
+
+    <div
+      class="typing"
+      id="typing">
+
+      Veloxa AI is thinking...
+
+    </div>
+
+    <!-- SUGGESTIONS -->
+
+    <div class="suggestions">
+
+      <button
+        class="suggestion"
+        data-question="What is artificial intelligence?">
+
+        What is AI?
+
+      </button>
+
+      <button
+        class="suggestion"
+        data-question="Explain quantum physics simply">
+
+        Explain physics
+
+      </button>
+
+      <button
+        class="suggestion"
+        data-question="Teach me JavaScript">
+
+        Teach me JavaScript
+
+      </button>
+
+      <button
+        class="suggestion"
+        data-question="Give me a business idea">
+
+        Business idea
+
+      </button>
+
+      <button
+        class="suggestion"
+        data-question="Help me write a professional email">
+
+        Write an email
+
+      </button>
+
+    </div>
+
+    <!-- COMPOSER -->
+
+    <div class="composer">
+
+      <form
+        class="input-area"
+        id="chatForm">
+
+        <input
+          id="input"
+          type="text"
+          autocomplete="off"
+          placeholder="Ask Veloxa AI anything..."
+        >
+
+        <button
+          class="send"
+          type="submit">
+
+          ➤
+
+        </button>
+
+      </form>
+
+      <div class="disclaimer">
+
+        Veloxa AI can make mistakes.
+        Verify important information.
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+
+  /* ==========================================
+     VELOXA AI
+  ========================================== */
+
+  const messages =
+    document.getElementById("messages");
+
+  const input =
+    document.getElementById("input");
+
+  const chatForm =
+    document.getElementById("chatForm");
+
+  const typing =
+    document.getElementById("typing");
+
+  const welcome =
+    document.getElementById("welcome");
+
+  const clearBtn =
+    document.getElementById("clearBtn");
+
+  const newChat =
+    document.getElementById("newChat");
+
+  /* ==========================================
+     KNOWLEDGE BASE
+  ========================================== */
+
+  const knowledge = {
+
+    ai: `
+Artificial Intelligence (AI) is the field of computer science focused on creating systems that can perform tasks that normally require human intelligence.
+
+Examples include:
+
+• Chatbots
+• Image recognition
+• Speech recognition
+• Recommendation systems
+• Autonomous systems
+• Machine learning
+• Generative AI
+
+AI learns patterns from data and can use those patterns to make predictions, generate content or assist with decisions.
+`,
+
+    programming: `
+Programming is the process of creating instructions that computers can execute.
+
+Popular programming languages include:
+
+• JavaScript
+• Python
+• Java
+• C
+• C++
+• C#
+• PHP
+• Go
+• Rust
+
+JavaScript is particularly popular for web development because it runs directly in modern web browsers.
+`,
+
+    mathematics: `
+Mathematics is the study of numbers, structures, patterns, quantities and relationships.
+
+Major areas include:
+
+• Arithmetic
+• Algebra
+• Geometry
+• Calculus
+• Statistics
+• Probability
+• Number theory
+• Linear algebra
+
+I can help explain mathematical concepts step by step.
+`,
+
+    science: `
+Science is a systematic way of studying the natural world through observation, experimentation and evidence.
+
+Major scientific fields include:
+
+• Physics
+• Chemistry
+• Biology
+• Astronomy
+• Earth science
+• Computer science
+• Environmental science
+`,
+
+    business: `
+Business involves creating, delivering and exchanging products or services.
+
+Important areas include:
+
+• Entrepreneurship
+• Marketing
+• Finance
+• Sales
+• Management
+• Strategy
+• Accounting
+• Operations
+
+A successful business generally needs a valuable solution to a real customer problem.
+`,
+
+    history: `
+History is the study of past events, civilizations, people and societies.
+
+It helps us understand how political systems, cultures, technologies and economies developed over time.
+
+You can ask me about a particular historical period, civilization or event.
+`,
+
+    education: `
+Education is the process of acquiring knowledge, skills, values and understanding.
+
+I can help with:
+
+• Study plans
+• Explanations
+• Summaries
+• Research topics
+• Programming
+• Mathematics
+• Science
+• Writing
+• Exam preparation
+`,
+
+    technology: `
+Technology refers to tools, systems and techniques developed to solve problems and accomplish goals.
+
+Modern technology includes:
+
+• Artificial Intelligence
+• Cloud computing
+• Software
+• Robotics
+• Cybersecurity
+• Blockchain
+• Internet technologies
+• Mobile applications
+• Databases
+• Automation
+`
+
+  };
+
+  /* ==========================================
+     ADD MESSAGE
+  ========================================== */
+
+  function addMessage(text, sender) {
+
+    if (welcome) {
+      welcome.remove();
+    }
+
+    const message =
+      document.createElement("div");
+
+    message.className =
+      "message " + sender;
+
+    const avatar =
+      document.createElement("div");
+
+    avatar.className = "avatar";
+
+    avatar.textContent =
+      sender === "bot"
+        ? "VX"
+        : "YOU";
+
+    const bubble =
+      document.createElement("div");
+
+    bubble.className = "bubble";
+
+    bubble.textContent = text;
+
+    message.appendChild(avatar);
+
+    message.appendChild(bubble);
+
+    messages.appendChild(message);
+
+    messages.scrollTop =
+      messages.scrollHeight;
+
+  }
+
+  /* ==========================================
+     FIND TOPIC
+  ========================================== */
+
+  function detectTopic(question) {
+
+    const q =
+      question.toLowerCase();
+
+    if (
+      q.includes("artificial intelligence") ||
+      q.includes("machine learning") ||
+      q.includes("what is ai") ||
+      q.includes("chatbot")
+    ) {
+      return "ai";
+    }
+
+    if (
+      q.includes("programming") ||
+      q.includes("javascript") ||
+      q.includes("python") ||
+      q.includes("coding") ||
+      q.includes("software")
+    ) {
+      return "programming";
+    }
+
+    if (
+      q.includes("math") ||
+      q.includes("mathematics") ||
+      q.includes("algebra") ||
+      q.includes("calculus")
+    ) {
+      return "mathematics";
+    }
+
+    if (
+      q.includes("science") ||
+      q.includes("physics") ||
+      q.includes("chemistry") ||
+      q.includes("biology")
+    ) {
+      return "science";
+    }
+
+    if (
+      q.includes("business") ||
+      q.includes("entrepreneur") ||
+      q.includes("marketing") ||
+      q.includes("startup")
+    ) {
+      return "business";
+    }
+
+    if (
+      q.includes("history") ||
+      q.includes("historical") ||
+      q.includes("civilization")
+    ) {
+      return "history";
+    }
+
+    if (
+      q.includes("education") ||
+      q.includes("study") ||
+      q.includes("learn")
+    ) {
+      return "education";
+    }
+
+    if (
+      q.includes("technology") ||
+      q.includes("tech") ||
+      q.includes("computer")
+    ) {
+      return "technology";
+    }
+
+    return null;
+
+  }
+
+  /* ==========================================
+     AI RESPONSE ENGINE
+  ========================================== */
+
+  function generateResponse(question) {
+
+    const q =
+      question.toLowerCase().trim();
+
+    /* Greetings */
+
+    if (
+      q === "hi" ||
+      q === "hello" ||
+      q === "hey" ||
+      q.startsWith("hello ")
+    ) {
+
+      return `
+Hello! 👋
+
+I'm Veloxa AI.
+
+I can help you with questions about science, technology, business, programming, education, mathematics, history, writing and many other subjects.
+
+What would you like to know?
+`;
+
+    }
+
+    /* Identity */
+
+    if (
+      q.includes("who are you") ||
+      q.includes("what are you")
+    ) {
+
+      return `
+I am Veloxa AI, an intelligent assistant developed for Veloxa Technologies.
+
+I am designed to help users learn, solve problems, generate ideas, write content and explore information across many different fields.
+`;
+
+    }
+
+    /* Company */
+
+    if (
+      q.includes("veloxa") ||
+      q.includes("veloxa technologies")
+    ) {
+
+      return `
+Veloxa Technologies is a technology-focused organization.
+
+Its areas can include:
+
+🤖 Artificial Intelligence
+📚 Digital publishing and Veloxa Books
+📈 Forex-related education and technology
+💻 Software and web development
+⚙️ Digital solutions
+🌐 Technology services
+
+Veloxa AI is the intelligent-assistant component of this ecosystem.
+`;
+
+    }
+
+    /* Thanks */
+
+    if (
+      q.includes("thank") ||
+      q.includes("thanks")
+    ) {
+
+      return `
+You're welcome! 😊
+
+Feel free to ask Veloxa AI another question.
+`;
+
+    }
+
+    /* Goodbye */
+
+    if (
+      q === "bye" ||
+      q === "goodbye"
+    ) {
+
+      return `
+Goodbye! 👋
+
+I'll be here whenever you need Veloxa AI.
+`;
+
+    }
+
+    /* Simple arithmetic */
+
+    if (
+      /^[0-9+\-*/().\s]+$/.test(q)
+    ) {
+
+      try {
+
+        const result =
+          Function(
+            '"use strict"; return (' +
+            q +
+            ')'
+          )();
+
+        return "The answer is: " + result;
+
+      } catch {
+
+        return "I couldn't calculate that expression.";
+
+      }
+
+    }
+
+    /* Topic detection */
+
+    const topic =
+      detectTopic(q);
+
+    if (topic) {
+
+      return knowledge[topic];
+
+    }
+
+    /* Writing */
+
+    if (
+      q.includes("write") ||
+      q.includes("essay") ||
+      q.includes("email") ||
+      q.includes("letter") ||
+      q.includes("paragraph")
+    ) {
+
+      return `
+I can help you write that.
+
+Please provide:
+
+1. The type of content you need.
+2. The topic.
+3. The intended audience.
+4. The tone you want.
+
+For example:
+
+"Write a professional email asking a client for a meeting."
+
+Then I can help structure it.
+`;
+
+    }
+
+    /* Explanation */
+
+    if (
+      q.includes("explain") ||
+      q.includes("what is") ||
+      q.includes("define")
+    ) {
+
+      return `
+I'd be happy to explain that.
+
+For the most useful explanation, tell me the exact concept or subject.
+
+For example:
+
+• Explain blockchain
+• Explain economics
+• Explain quantum physics
+• Explain photosynthesis
+• Explain programming
+• Explain cryptocurrency
+
+I'll try to make the explanation clear and easy to understand.
+`;
+
+    }
+
+    /* General fallback */
+
+    return `
+That's an interesting question.
+
+I can help explore it, but this browser-only version of Veloxa AI uses a local response engine rather than a full large language model.
+
+You can ask me about:
+
+🤖 AI & Machine Learning
+💻 Programming & Software
+🔬 Science
+🧮 Mathematics
+💼 Business
+📚 History
+🎓 Education
+🌐 Technology
+✍️ Writing
+💡 Ideas & Problem Solving
+
+For genuinely open-ended answers to almost any question, connect this interface to an AI model through a secure backend API.
+`;
+
+  }
+
+  /* ==========================================
+     SEND MESSAGE
+  ========================================== */
+
+  function sendMessage(question) {
+
+    question =
+      question.trim();
+
+    if (!question) {
+      return;
+    }
+
+    addMessage(
+      question,
+      "user"
+    );
+
+    input.value = "";
+
+    typing.classList.add("show");
+
+    setTimeout(() => {
+
+      const answer =
+        generateResponse(question);
+
+      typing.classList.remove("show");
+
+      addMessage(
+        answer,
+        "bot"
+      );
+
+    }, 700);
+
+  }
+
+  /* ==========================================
+     FORM
+  ========================================== */
+
+  chatForm.addEventListener(
+    "submit",
+    function(event) {
+
+      event.preventDefault();
+
+      sendMessage(input.value);
+
+    }
+  );
+
+  /* ==========================================
+     SUGGESTIONS
+  ========================================== */
+
+  document
+    .querySelectorAll("[data-question]")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          sendMessage(
+            button.dataset.question
+          );
+
+        }
+      );
+
+    });
+
+  /* ==========================================
+     CLEAR CHAT
+  ========================================== */
+
+  function clearChat() {
+
+    messages.innerHTML = `
+
+      <div class="welcome" id="welcome">
+
+        <div class="welcome-logo">
+          VX
+        </div>
+
+        <h1>
+          Welcome to Veloxa AI
+        </h1>
+
+        <p>
+          Your intelligent digital assistant.
+          Ask questions, learn new subjects,
+          solve problems, generate ideas,
+          and explore different fields.
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+  clearBtn.addEventListener(
+    "click",
+    clearChat
+  );
+
+  newChat.addEventListener(
+    "click",
+    clearChat
+  );
+
+  /* ==========================================
+     ENTER KEY
+  ========================================== */
+
+  input.addEventListener(
+    "keydown",
+    function(event) {
+
+      if (
+        event.key === "Enter" &&
+        !event.shiftKey
+      ) {
+
+        event.preventDefault();
+
+        chatForm.dispatchEvent(
+          new Event("submit")
+        );
+
+      }
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
+
+ If you want, I can next  build Veloxa AI 2.0 with a Node.js backend + AI API , including conversation memory, markdown responses, code formatting, dark/light mode, voice input, and a professional Veloxa Technologies interface.
