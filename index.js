@@ -16,7 +16,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
                 var password = document.getElementById('password').value;
 
                 // Simple validation for demo purposes
-                if (username === 'Israel' && password === '#@Easz2006') {
+                if (username === 'Israel' && password === '#@Easz2006!') {
                     open("./welcome.html")
                     
                 } else {
