@@ -250,6 +250,50 @@ transform:translateY(0);
     
   }
 
+.btn {
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: black;
+    border: 2px solid #008cff;
+    border-radius: 8px;
+    animation: blueBlackFlicker 1.5s infinite;
+}
+
+@keyframes blueBlackFlicker {
+    0%, 100% {
+        background: #000;
+        border-color: #008cff;
+        box-shadow: 0 0 5px #008cff;
+    }
+
+    20% {
+        background: #006eff;
+        box-shadow: 0 0 25px #006eff;
+    }
+
+    25% {
+        background: #000;
+        box-shadow: 0 0 3px #008cff;
+    }
+
+    50% {
+        background: #006eff;
+        box-shadow: 0 0 35px #006eff;
+    }
+
+    55% {
+        background: #000;
+        box-shadow: 0 0 5px #008cff;
+    }
+
+    80% {
+        background: #008cff;
+        box-shadow: 0 0 30px #008cff;
+    }
+}
+
 </style>
 
 </head>
@@ -305,7 +349,7 @@ payments, learning and artificial intelligence.
 <p>
 An intelligent assistant capable of answering questions,
 automating support and engaging users with natural conversations.<br/>
-  <button id="ai" onclick="chat()">Explore Veloxa Chatbot</button>
+  <button id="btn" onclick="chat()">Explore Veloxa Chatbot</button>
 </p>
 </div>
 
@@ -324,7 +368,7 @@ fast and reliable transactions.
 <p>
 Advanced artificial intelligence tools for automation,
 content generation, analytics and business productivity.
-  <button onclick="ai()">Visit veloxa AI</button>
+  <button id="btn"  onclick="ai()">Visit veloxa AI</button>
 
 </p>
 </div>
