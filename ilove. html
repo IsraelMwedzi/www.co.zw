@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Be Mine? ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #050505, #071a33, #001f3f);
+      color: white;
+      overflow: hidden;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 25px;
+    }
+
+    .card {
+      width: min(90%, 600px);
+      padding: 45px 30px;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 0 50px rgba(0,120,255,0.25);
+    }
+
+    .heart {
+      font-size: 70px;
+      animation: heartbeat 1.2s infinite;
+    }
+
+    @keyframes heartbeat {
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    h1 {
+      margin: 20px 0 12px;
+      font-size: clamp(30px, 7vw, 55px);
+    }
+
+    p {
+      color: #cbdcff;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .buttons {
+      margin-top: 35px;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      position: relative;
+      min-height: 65px;
+    }
+
+    button {
+      border: none;
+      padding: 16px 35px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    #yes {
+      background: #087cff;
+      color: white;
+      box-shadow: 0 0 25px rgba(0,124,255,0.7);
+    }
+
+    #yes:hover {
+      transform: scale(1.08);
+    }
+
+    #no {
+      background: white;
+      color: #111;
+      position: relative;
+    }
+
+    /* DATE PAGE */
+
+    #datePage {
+      display: none;
+    }
+
+    .date-card {
+      width: min(95%, 700px);
+      padding: 35px;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(15px);
+    }
+
+    .date-card h2 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .date-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .option {
+      padding: 22px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .option:hover {
+      transform: translateY(-5px);
+      background: rgba(0,120,255,.25);
+    }
+
+    .option.selected {
+      background: #087cff;
+      box-shadow: 0 0 25px rgba(0,124,255,.5);
+    }
+
+    .option span {
+      display: block;
+      font-size: 35px;
+      margin-bottom: 8px;
+    }
+
+    #confirm {
+      margin-top: 30px;
+      background: #087cff;
+      color: white;
+      width: 100%;
+    }
+
+    #message {
+      margin-top: 20px;
+      color: #7db9ff;
+      font-weight: bold;
+    }
+
+    @media(max-width: 600px) {
+      .date-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 35px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PAGE 1 -->
+  <section class="page" id="proposalPage">
+    <div class="card">
+
+      <div class="heart">❤️</div>
+
+      <h1>Will You Be Mine?</h1>
+
+      <p>
+        I have something important to ask you...
+        <br>
+        Will you give me a chance to make beautiful memories with you?
+      </p>
+
+      <div class="buttons">
+        <button id="yes">YES ❤️</button>
+        <button id="no">NO 😏</button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- PAGE 2 -->
+  <section class="page" id="datePage">
+    <div class="date-card">
+
+      <div class="heart">💙</div>
+
+      <h2>It's a Date! 🎉</h2>
+
+      <p>
+        Now let's plan our first adventure together.
+        <br>
+        Choose what sounds perfect to you.
+      </p>
+
+      <div class="date-grid">
+
+        <div class="option">
+          <span>🍽️</span>
+          Dinner
+        </div>
+
+        <div class="option">
+          <span>🎬</span>
+          Movie Night
+        </div>
+
+        <div class="option">
+          <span>🌅</span>
+          Sunset Date
+        </div>
+
+        <div class="option">
+          <span>☕</span>
+          Coffee & Talk
+        </div>
+
+      </div>
+
+      <button id="confirm">
+        This Is Our Date ❤️
+      </button>
+
+      <div id="message"></div>
+
+    </div>
+  </section>
+
+
+  <script>
+
+    const yes = document.getElementById("yes");
+    const no = document.getElementById("no");
+
+    const proposalPage = document.getElementById("proposalPage");
+    const datePage = document.getElementById("datePage");
+
+    // YES opens the date-planning page
+    yes.addEventListener("click", () => {
+      proposalPage.style.display = "none";
+      datePage.style.display = "flex";
+      document.body.style.overflow = "auto";
+    });
+
+
+    // Make NO run away
+    function moveNoButton() {
+
+      const padding = 20;
+
+      const maxX =
+        window.innerWidth -
+        no.offsetWidth -
+        padding;
+
+      const maxY =
+        window.innerHeight -
+        no.offsetHeight -
+        padding;
+
+      const x =
+        Math.max(padding, Math.random() * maxX);
+
+      const y =
+        Math.max(padding, Math.random() * maxY);
+
+      no.style.position = "fixed";
+      no.style.left = x + "px";
+      no.style.top = y + "px";
+    }
+
+    // Desktop cursor detection
+    no.addEventListener("mouseenter", moveNoButton);
+
+    // Extra protection 😏
+    no.addEventListener("mouseover", moveNoButton);
+
+    // Mobile users can tap it, but it escapes
+    no.addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      moveNoButton();
+    });
+
+
+    // Date selection
+    const options = document.querySelectorAll(".option");
+
+    options.forEach(option => {
+
+      option.addEventListener("click", () => {
+
+        options.forEach(item =>
+          item.classList.remove("selected")
+        );
+
+        option.classList.add("selected");
+
+      });
+
+    });
+
+
+    // Confirm date
+    document.getElementById("confirm").addEventListener("click", () => {
+
+      const selected = document.querySelector(".option.selected");
+
+      const message = document.getElementById("message");
+
+      if (!selected) {
+        message.textContent =
+          "Choose our date first 😌❤️";
+        return;
+      }
+
+      message.textContent =
+        "Perfect! " +
+        selected.textContent.trim() +
+        " it is. ❤️ I can't wait!";
+    });
+
+  </script>
+
+</body>
+</html>
